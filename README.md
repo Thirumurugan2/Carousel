@@ -37,161 +37,120 @@ Use setInterval to call the nextImage() function at regular intervals.
 Clean up the interval when the component unmounts using clearInterval to prevent memory leaks.
 
 ## PROGRAM
-App.css
-```
-#root {
-  max-width: 1280px;
-  margin: 0 auto;
-  padding: 2rem;
-  text-align: center;
-}
-
-.logo {
-  height: 6em;
-  padding: 1.5em;
-  will-change: filter;
-  transition: filter 300ms;
-}
-.logo:hover {
-  filter: drop-shadow(0 0 2em #646cffaa);
-}
-.logo.react:hover {
-  filter: drop-shadow(0 0 2em #61dafbaa);
-}
-
-@keyframes logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
-}
-
-@media (prefers-reduced-motion: no-preference) {
-  a:nth-of-type(2) .logo {
-    animation: logo-spin infinite 20s linear;
-  }
-}
-
-.card {
-  padding: 2em;
-}
-
-.read-the-docs {
-  color: #888;
-}
-```
 App.jsx
 ```
-#root {
-  max-width: 1280px;
-  margin: 0 auto;
-  padding: 2rem;
-  text-align: center;
-}
+import React, { useState } from "react";
+import "./app.css";
 
-.logo {
-  height: 6em;
-  padding: 1.5em;
-  will-change: filter;
-  transition: filter 300ms;
-}
-.logo:hover {
-  filter: drop-shadow(0 0 2em #646cffaa);
-}
-.logo.react:hover {
-  filter: drop-shadow(0 0 2em #61dafbaa);
-}
 
-@keyframes logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
-}
-
-@media (prefers-reduced-motion: no-preference) {
-  a:nth-of-type(2) .logo {
-    animation: logo-spin infinite 20s linear;
-  }
-}
-
-.card {
-  padding: 2em;
-}
-
-.read-the-docs {
-  color: #888;
-}
-```
-ImageCarousel.jsx
-```
-import React, { useState, useEffect } from 'react';
-
+export default function App() {
 const images = [
-  'https://picsum.photos/id/1018/600/400',
-  'https://picsum.photos/id/1015/600/400',
-  'https://picsum.photos/id/1019/600/400',
-  'https://picsum.photos/id/1020/600/400',
+"https://images.unsplash.com/photo-1506765515384-028b60a970df?w=1200",
+"https://images.unsplash.com/photo-1500534623283-312aade485b7?w=1200",
+"https://images.unsplash.com/photo-1521295121783-8a321d551ad2?w=1200",
+"https://images.unsplash.com/photo-1506744038136-46273834b3fb?w=1200",
+"https://images.unsplash.com/photo-1519125323398-675f0ddb6308?w=1200",
 ];
 
-export default function ImageCarousel() {
-  const [currentIndex, setCurrentIndex] = useState(0);
 
-  // Next image function
-  const nextImage = () => {
-    setCurrentIndex((currentIndex + 1) % images.length);
-  };
+const [index, setIndex] = useState(0);
 
-  // Previous image function
-  const prevImage = () => {
-    setCurrentIndex((currentIndex - 1 + images.length) % images.length);
-  };
 
-  // Auto-rotation effect
-  useEffect(() => {
-    const interval = setInterval(() => {
-      nextImage();
-    }, 3000);
+const next = () => setIndex((index + 1) % images.length);
+const prev = () => setIndex((index - 1 + images.length) % images.length);
 
-    // Cleanup on unmount
-    return () => clearInterval(interval);
-  }, [currentIndex]); // currentIndex in dependency ensures it updates correctly
 
- return (
-  <div style={{ width: '600px', margin: 'auto', textAlign: 'center' }}>
-    <h2>Image Carousel</h2>
-    <img
-      src={images[currentIndex]}
-      alt={`Slide ${currentIndex}`}
-      style={{ width: '100%', height: 'auto', borderRadius: '10px' }}
-    />
-    <div style={{ marginTop: '10px' }}>
-      <button onClick={prevImage}>Previous</button>
-      <span style={{ margin: '0 15px' }}>
-        {currentIndex + 1} / {images.length}
-      </span>
-      <button onClick={nextImage}>Next</button>
-    </div>
+return (
+<div className="carousel">
+<h1>Image Carousel</h1>
+<button onClick={prev} className="btn">❮</button>
+<img src={images[index]} alt="slide" className="slide" />
+<button onClick={next} className="btn">❯</button>
+<br />
+<div>
+  <footer className="name"> Name : THIRUMURUGAN R</footer>
+  <p className="regno"> RegNo : 212223220118</p>
+</div>
+<br />
+</div>
 
-    {/* Add your footer here */}
-    <footer style={{ marginTop: '20px', fontStyle: 'italic', color: '#555' }}>
-      <p>Name: THIRUMURUGAN R</p>
-      <p>Register Number: 212222201183</p>
-    </footer>
-  </div>
 );
-
 }
 ```
+
+App.css
+```
+.carousel {
+display: flex;
+flex-direction: column;
+align-items: center;
+justify-content: center;
+gap: 20px;
+width: 100%;
+margin-top: 30px;
+}
+
+
+.slide {
+width: 75%;
+max-width: 900px;
+border-radius: 16px;
+box-shadow: 0 8px 20px rgba(0, 0, 0, 0.25);
+transition: transform 0.4s ease, box-shadow 0.4s ease;
+}
+
+
+.slide:hover {
+transform: scale(1.03);
+box-shadow: 0 12px 28px rgba(0, 0, 0, 0.3);
+}
+
+
+.btn {
+font-size: 28px;
+background: linear-gradient(135deg, #00000090, #00000050);
+color: white;
+border: none;
+padding: 12px 18px;
+border-radius: 50%;
+cursor: pointer;
+backdrop-filter: blur(6px);
+transition: 0.3s ease;
+}
+
+
+.btn:hover {
+background: #000000cc;
+transform: scale(1.1);
+}
+
+.name {
+  font-family: Verdana, Geneva, Tahoma, sans-serif;
+  font-size: 30px;
+  color: rgb(255, 255, 255);
+  background-color: rgb(168, 0, 92);
+  padding: 10px;
+  border-radius: 20px;
+}
+
+.regno {
+  font-family: Verdana, Geneva, Tahoma, sans-serif;
+  font-size: 30px;
+  color: rgb(255, 255, 255);
+  background-color: rgb(168, 0, 92);
+  padding: 10px;
+  border-radius: 20px;
+  text-align: center;
+}
+```
+
 ## OUTPUT
-<img width="956" height="952" alt="image" src="https://github.com/user-attachments/assets/d7f34b05-56ad-4745-83da-2488128e33e4" />
-<img width="959" height="959" alt="image" src="https://github.com/user-attachments/assets/10936bf3-2c7a-4e64-b902-d641399e13ba" />
-<img width="956" height="1012" alt="image" src="https://github.com/user-attachments/assets/db70325e-9d99-4b4f-9a8f-04292a2198cd" />
-<img width="956" height="1010" alt="image" src="https://github.com/user-attachments/assets/6fefa133-c4c2-4048-9046-8b69d11a0a5a" />
+<img width="1918" height="1018" alt="image" src="https://github.com/user-attachments/assets/e61c9c5f-75d1-4f22-ae40-6d425554f30a" />
+<img width="1918" height="1017" alt="image" src="https://github.com/user-attachments/assets/2f9bb6bd-c275-49e9-a26b-6c036d18bbec" />
+<img width="1917" height="1021" alt="image" src="https://github.com/user-attachments/assets/69f0776f-839d-4580-8d56-b527a9dfa523" />
+<img width="1918" height="1022" alt="image" src="https://github.com/user-attachments/assets/fb37bd14-b515-4c5e-93b7-f7d0215670aa" />
+
+
 
 
 ## RESULT
