@@ -179,8 +179,8 @@ export default function ImageCarousel() {
 
     {/* Add your footer here */}
     <footer style={{ marginTop: '20px', fontStyle: 'italic', color: '#555' }}>
-      <p>Name: DIVYA M</p>
-      <p>Register Number: 212223040043</p>
+      <p>Name: THIRUMURUGAN R</p>
+      <p>Register Number: 212222201183</p>
     </footer>
   </div>
 );
